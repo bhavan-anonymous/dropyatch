@@ -1,0 +1,27 @@
+.nav {
+  background-color: #fafafa;
+  list-style: none;
+  flex: 3;
+  padding: 24px;
+  &__title {
+    font-size: 24px;
+    font-weight: 600;
+    color: purple;
+    margin: 24px 0 48px 0;
+  }
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    &__item {
+      list-style: none;
+      font-size: 14px;
+      color: #333333;
+      padding: 24px 0px;
+
+      &--active {
+        font-weight: 600;
+      }
+    }
+  }
+}

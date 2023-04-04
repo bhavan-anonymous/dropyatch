@@ -1,0 +1,15 @@
+.header {
+  height: 40px;
+  background-color: purple;
+  display: flex;
+
+  &__nav {
+    flex: 4;
+  }
+  &__search {
+    flex: 15;
+  }
+  &__actions {
+    flex: 5;
+  }
+}
