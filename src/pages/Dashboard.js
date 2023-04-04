@@ -11,7 +11,7 @@ import {
 } from "recharts";
 import { DateRangePicker } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
-import { isAfter, isBefore } from "date-fns";
+import { format, isAfter, isBefore } from "date-fns";
 export const Dashboard = () => {
   const [from, setFrom] = useState(new Date(data[0].date));
   const [to, setTo] = useState(new Date(data[data.length - 1].date));
@@ -43,8 +43,15 @@ export const Dashboard = () => {
       <div className="dashboard__filters">
         <DateRangePicker
           onChange={(range) => {
-            setFrom(range[0]);
-            setTo(range[1]);
+            debugger;
+            if (range) {
+              setFrom(range[0]);
+              setTo(range[1]);
+            } else {
+              // RESET to the range available , otherwise the ui will throw
+              setFrom(new Date(data[0].date));
+              setTo(new Date(data[data.length - 1].date));
+            }
           }}
           value={[from, to]}
           shouldDisableDate={(date, selectedDate, selectedDone, target) => {
@@ -63,11 +70,11 @@ export const Dashboard = () => {
       <div className="dashboard__analytics">
         <div className="dashboard__card">
           <p>Total Clicks</p>
-          <h3>{totalClicks}</h3>
+          <h3>{new Intl.NumberFormat("en").format(totalClicks)}</h3>
         </div>
         <div className="dashboard__card">
           <p>Total impressions</p>
-          <h3>{totalImpressions}</h3>
+          <h3>{new Intl.NumberFormat("en").format(totalImpressions)}</h3>
         </div>
       </div>
       <LineChart
@@ -87,7 +94,9 @@ export const Dashboard = () => {
         <CartesianGrid stroke="#eaeaea" strokeDasharray="3 3" />
         <XAxis dataKey="date" />
         <YAxis />
-        <Tooltip />
+        <Tooltip
+          formatter={(value) => new Intl.NumberFormat("en").format(value)}
+        />
       </LineChart>
     </div>
   );
